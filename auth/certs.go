@@ -8,7 +8,7 @@ import (
 
 	"software.sslmate.com/src/go-pkcs12"
 
-	"go-utils/logger"
+	"github.com/BloodRedCodr/go-utils/logger"
 )
 
 func GetCertsFromP12(logger *logger.Logger, p12CertPath string, p12Pwd string) (tls.Certificate, *x509.CertPool) {

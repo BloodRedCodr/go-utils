@@ -12,8 +12,8 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"go-utils/auth"
-	"go-utils/logger"
+	"github.com/BloodRedCodr/go-utils/auth"
+	"github.com/BloodRedCodr/go-utils/logger"
 )
 
 func Connect(
