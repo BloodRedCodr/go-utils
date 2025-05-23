@@ -20,8 +20,7 @@ func Connect(
 	logger *logger.Logger,
 	p12CertPath string, p12Pwd string,
 	host string, port string,
-	username string, password string,
-	dbName string,
+	username string, dbName string,
 ) *gorm.DB {
 	cert, caCertPool := auth.GetCertsFromP12(logger, p12CertPath, p12Pwd)
 	tlsConfig := &tls.Config{
@@ -31,8 +30,8 @@ func Connect(
 		MinVersion:   tls.VersionTLS12,
 	}
 
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=verify-full",
-		host, port, username, password, dbName)
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password= dbname=%s sslmode=verify-full",
+		host, port, username, dbName)
 
 	pgxConfig, err := pgx.ParseConfig(dsn)
 	if err != nil {
