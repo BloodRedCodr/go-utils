@@ -30,7 +30,7 @@ func Connect(
 		MinVersion:   tls.VersionTLS12,
 	}
 
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password= dbname=%s sslmode=verify-full",
+	dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=verify-full",
 		host, port, username, dbName)
 
 	pgxConfig, err := pgx.ParseConfig(dsn)
