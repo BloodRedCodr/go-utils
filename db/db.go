@@ -22,7 +22,7 @@ func Connect(
 	host string, port string,
 	username string, dbName string,
 ) *gorm.DB {
-	cert, caCertPool := auth.GetCertsFromP12(logger, p12CertPath, p12Pwd)
+	cert, caCertPool, _, _ := auth.GetCertsFromP12(logger, p12CertPath, p12Pwd)
 	tlsConfig := &tls.Config{
 		Certificates: []tls.Certificate{cert},
 		RootCAs:      caCertPool,

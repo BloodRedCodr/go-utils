@@ -11,7 +11,7 @@ import (
 	"github.com/BloodRedCodr/go-utils/logger"
 )
 
-func GetCertsFromP12(logger *logger.Logger, p12CertPath string, p12Pwd string) (tls.Certificate, *x509.CertPool) {
+func GetCertsFromP12(logger *logger.Logger, p12CertPath string, p12Pwd string) (tls.Certificate, *x509.CertPool, string, string) {
 	p12Data, err := os.ReadFile(p12CertPath)
 	if err != nil {
 		logger.Fatal("Failed to read .p12 file: %v", err)
@@ -53,5 +53,20 @@ func GetCertsFromP12(logger *logger.Logger, p12CertPath string, p12Pwd string) (
 		caCertPool.AddCert(ca)
 	}
 
-	return tlsCert, caCertPool
+	writeTempFile := func(prefix string, data []byte) string {
+		tmpFile, err := os.CreateTemp("", prefix)
+		if err != nil {
+			logger.Fatal("Failed to create temp file: %v", err)
+		}
+		if _, err := tmpFile.Write(data); err != nil {
+			logger.Fatal("Failed to write to temp file: %v", err)
+		}
+		tmpFile.Close()
+		return tmpFile.Name()
+	}
+
+	certPath := writeTempFile("cert-", certPEM)
+	keyPath := writeTempFile("key-", keyPEM)
+
+	return tlsCert, caCertPool, certPath, keyPath
 }
