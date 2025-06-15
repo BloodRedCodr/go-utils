@@ -21,7 +21,7 @@ func Connect(
 		MinVersion:   tls.VersionTLS12,
 	}
 
-	natsServer := "nats://" + host + ":" + port
+	natsServer := "tls://" + host + ":" + port
 	nc, err := nats.Connect(natsServer, nats.Secure(tlsConfig))
 	if err != nil {
 		logger.Fatal("Error connecting to NATS: %v", err)
